@@ -29,7 +29,13 @@ def editTask(title):
 def getAllTaskName():
     tasks = getAllTask()
     return [task["title"] for task in tasks]
-    
+
+def getTask(title):
+    tasks = getAllTask()
+    for task in tasks:
+        if task["title"] == title:
+            return task
+    return None
     
     
 
