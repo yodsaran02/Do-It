@@ -8,7 +8,6 @@ print("1. add work")
 print("2. show work")
 print("3. finished work")
 print("Q: save&exit")
-work_list = storage.getAllTask()
 
 while True:
     choice = input("Select Menu: ")
@@ -27,10 +26,10 @@ while True:
                 break
             except ValueError:
                 print("Invalid date format. Please enter the date in DD/MM/YY format.")
-        work_list.append({"title": input_work, "duedate": duedate})
-        work_list.sort(key=lambda x: (x["duedate"] is None, x["duedate"]))
+        storage.createTask(input_work, duedate)
         print("successfully added", end="\n\n")
     elif choice == "2":
+        work_list = storage.getAllTask()
         for i in work_list:
             print(i["title"], end="")
             if i["duedate"] is not None:
@@ -41,12 +40,6 @@ while True:
     elif choice == "3":
         input_work = input("Input finished work: ")
         found = False
-        for i in work_list:
-            if i["title"] == input_work:
-                work_list.remove(i)
-                print("successfully removed", end="\n\n")
-                found = True
-                break
         if not found:
             print("work not found", end="\n\n")
     else: print("Invalid menu, please select again")
