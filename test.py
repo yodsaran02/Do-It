@@ -5,8 +5,9 @@ from lib import storage
 print("Do-It Version 1.0")
 print("Select Menu below")
 print("1. add work")
-print("2. show work")
-print("3. finished work")
+print("2. edit work")
+print("3. show all work")
+print("4. mark work as done")
 print("Q: save&exit")
 
 while True:
@@ -28,7 +29,7 @@ while True:
                 print("Invalid date format. Please enter the date in DD/MM/YY format.")
         storage.createTask(input_work, duedate)
         print("successfully added", end="\n\n")
-    elif choice == "2":
+    elif choice == "3":
         work_list = storage.getAllTask()
         for i in work_list:
             print(i["title"], end="")
@@ -37,7 +38,7 @@ while True:
             else:
                 print(" (No due date)")
         print()
-    elif choice == "3":
+    elif choice == "4":
         input_work = input("Input finished work: ")
         found = False
         if not found:
