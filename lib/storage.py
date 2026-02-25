@@ -25,7 +25,10 @@ def createTask(title, duedate=None):
 
 def editTask(title):
     tasks = getAllTask()
-    
+
+def getAllTaskName():
+    tasks = getAllTask()
+    return [task["title"] for task in tasks]
     
     
     
