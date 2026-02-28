@@ -16,7 +16,7 @@ while True:
         print("Program is exiting...")
         break
     if choice == "1":
-        input_work = input("Tittle: ")
+        input_work = input("Title: ")
         while True:
             raw_deadline = input("Duedate (DD/MM/YY), leave blank if no due date: ")
             if raw_deadline == "":

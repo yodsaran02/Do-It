@@ -19,7 +19,7 @@ def createTask(title, duedate=None):
     tasks = getAllTask()
     duedate = parseDueDate(duedate)
     currentTask = {
-        "hash": uuid.uuid4().hex
+        "hash": uuid.uuid4().hex,
         "title": title,
         "duedate": duedate,
         "tags": [],
