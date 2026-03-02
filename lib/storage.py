@@ -22,6 +22,7 @@ def createTask(title, duedate=None):
         "hash": uuid.uuid4().hex,
         "title": title,
         "duedate": duedate,
+        "isDone": False,
         "tags": [],
         "actual_time": 0,
         "predicted_time": None
@@ -29,7 +30,7 @@ def createTask(title, duedate=None):
     tasks.append(currentTask)
     writeToJson(tasks)
 
-def editTask(hash, title=None, duedate=None, actual_time=0, predicted_time=None, tags=[]):
+def editTask(hash, title=None, duedate=None, isDone=False, actual_time=0, predicted_time=None, tags=[]):
     tasks = getAllTask()
     for task in tasks:
         if task["hash"] == hash:
@@ -38,6 +39,7 @@ def editTask(hash, title=None, duedate=None, actual_time=0, predicted_time=None,
             task["actual_time"] = actual_time
             task["predicted_time"] = predicted_time
             task["tags"] = tags
+            task["isDone"] = isDone
         else:
             return "Not found"
             
