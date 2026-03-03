@@ -91,6 +91,7 @@ while True:
             console.print("No tags!", style="white on red")
             continue
     elif choice == "q" or choice == "Q":
+        print()
         break
     render()
 
