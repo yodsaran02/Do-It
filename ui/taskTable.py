@@ -20,12 +20,14 @@ def taskTable(tasks=None):
                 tag_string += f"#{tag} "
                 if counter % 3 == 0:
                     tag_string += "\n"
-            print(tag_string)
+            if counter == 0:
+                tag_string = "-"
             #format duedate
             duedate = ""
             if task["duedate"]:
                 duedate = datetime.fromisoformat(task["duedate"]).strftime("%d/%m/%Y")
-
+            else:
+                duedate = "-"
             isDone = "✓" if task["isDone"] else "x"
             #add each task to table
             time_remaining = ""
@@ -36,6 +38,7 @@ def taskTable(tasks=None):
                 elif time_remaining.total_seconds() >= 86400:
                     time_remaining = f"{int(time_remaining.total_seconds() // 86400)}d"
                 time_remaining = str(time_remaining).split(".")[0] #remove microseconds
-
+            else:
+                time_remaining = "-"
             task_table.add_row(task["title"], isDone, duedate, tag_string, time_remaining)
     return task_table

@@ -42,10 +42,8 @@ def editTask(newTask):
         if task["hash"] == newTask["hash"]:
             task["title"] = newTask["title"]
             task["duedate"] = newTask["duedate"]
-            print(task["duedate"])
             task["tags"] = newTask["tags"]
             task["isDone"] = newTask["isDone"]
-    print(tasks)
     writeToJson(tasks)
             
 def getAllTaskName():

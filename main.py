@@ -82,8 +82,8 @@ while True:
         input_tags = Prompt.ask("Tags (space separated)")
         tags = input_tags.replace("#","").split()
         tasks = storage.getAllTask()
-        if tags in storage.getAllTags():
-            filtered_tasks = [task for task in tasks if any(tag in task["tags"] for tag in tags)]
+        if tags:
+            filtered_tasks = [task for task in tasks if all(tag in task["tags"] for tag in tags)]
             render(tasks=filtered_tasks)
             continue
         else:
