@@ -24,8 +24,6 @@ def createTask(title, duedate=None):
         "duedate": duedate,
         "isDone": False,
         "tags": [],
-        "actual_time": 0,
-        "predicted_time": None
     }
     tasks.append(currentTask)
     writeToJson(tasks)
@@ -38,16 +36,14 @@ def deleteTask(taskHash):
     writeToJson(tasks)
     
 
-def editTask(hash, title=None, duedate=None, isDone=False, actual_time=0, predicted_time=None, tags=[]):
+def editTask(newTask):
     tasks = getAllTask()
     for task in tasks:
-        if task["hash"] == hash:
-            task["title"] = title
-            task["duedate"] = parseDueDate(duedate)
-            task["actual_time"] = actual_time
-            task["predicted_time"] = predicted_time
-            task["tags"] = tags
-            task["isDone"] = isDone
+        if task["hash"] == newTask["hash"]:
+            task["title"] = newTask["title"]
+            task["duedate"] = newTask["duedate"]
+            task["tags"] = newTask["tags"]
+            task["isDone"] = newTask["isDone"]
         else:
             return "Not found"
     writeToJson(tasks)
@@ -63,8 +59,18 @@ def getTask(title):
             return task
     return None
     
+def getAllTaskName():
+    tasks = getAllTask()
+    tasksName = [task["title"] for task in tasks]
+    return tasksName
     
-
-
+def getAllTags():
+    tasks = getAllTask()
+    tags = []
+    for task in tasks:
+        for tag in task["tags"]:
+            if tag not in tags:
+                tags.append(tag)
+    return tags
 
 

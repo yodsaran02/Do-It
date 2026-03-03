@@ -1,9 +1,7 @@
 from rich.console import Console
-from rich.panel import Panel
 from rich.table import Table
 from rich import box
 
-console = Console()
 
 def menuTable():
     menu_table = Table(show_header=False, box=box.SQUARE, expand=False, title="Menu~")
@@ -11,5 +9,7 @@ def menuTable():
     menu_table.add_column("Description", style="white")
     menu_table.add_row("[1]", "Add Task")
     menu_table.add_row("[2]", "Edit Task")
+    menu_table.add_row("[3]", "Delete Task")
+    menu_table.add_row("[F]", "Filter by tags")
     menu_table.add_row("[Q]", "Exit")
     return menu_table
