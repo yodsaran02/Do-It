@@ -8,10 +8,12 @@ from rich.columns import Columns
 from rich.prompt import Prompt
 console = Console(color_system="auto")
 
-def render():
+def render(tasks=None):
+    if not tasks:
+        tasks = storage.getAllTask()
     render = Panel.fit(
     Columns([
-        taskTable.taskTable(storage.getAllTask()), 
+        taskTable.taskTable(tasks), 
         menuTable.menuTable()], 
         equal=True, expand=True
     ),
@@ -48,21 +50,46 @@ while True:
             if new_title:
                 task["title"] = new_title
             if new_duedate:
-                task["deadline"] = datetime.strptime(new_duedate, "%d/%m/%y")
+                task["duedate"] = storage.parseDueDate(datetime.strptime(new_duedate, "%d/%m/%y"))
             if new_is_done:
                 task["isDone"] = True if new_is_done == "y" else False
             if added_tags:
-                task["tags"].extend(added_tags.split())
+                #print(added_tags)
+                task["tags"].extend(added_tags.replace("#","").split())
+                #print(task["tags"])
             if removed_tags:
-                for tag in removed_tags.split():
+                for tag in removed_tags.replace("#","").split():
                     task["tags"].remove(tag)
             storage.editTask(task)
         else:
             render()
             console.print("No task found!", style="white on red")
             continue
+    elif choice == "3":
+        input_task = Prompt.ask("Title")
+        task = storage.getTask(input_task)
+        if task:
+            storage.deleteTask(task["hash"])
+        else:
+            render()
+            console.print("No task found!", style="white on red")
+            continue
     elif choice == "f" or choice == "F":
-        pass
+        print("All Tags: ", end="")
+        for tag in storage.getAllTags():
+            print(f"#{tag}", end=" ")
+        print()
+        input_tags = Prompt.ask("Tags (space separated)")
+        tags = input_tags.replace("#","").split()
+        tasks = storage.getAllTask()
+        if tags in storage.getAllTags():
+            filtered_tasks = [task for task in tasks if any(tag in task["tags"] for tag in tags)]
+            render(tasks=filtered_tasks)
+            continue
+        else:
+            render()
+            console.print("No tags!", style="white on red")
+            continue
     elif choice == "q" or choice == "Q":
         break
     render()

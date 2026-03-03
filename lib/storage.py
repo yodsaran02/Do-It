@@ -7,8 +7,9 @@ def getAllTask():
     return tasks
 
 def writeToJson(data):
-    with open("task.json", mode="w", encoding="utf-8") as read_file:
-        json.dump(data, read_file)
+    with open("task.json", mode="w", encoding="utf-8") as write_file:
+        json.dump(data, write_file)
+    return None
 
 def parseDueDate(duedate):
     if duedate:
@@ -35,17 +36,16 @@ def deleteTask(taskHash):
             tasks.remove(task)
     writeToJson(tasks)
     
-
 def editTask(newTask):
     tasks = getAllTask()
     for task in tasks:
         if task["hash"] == newTask["hash"]:
             task["title"] = newTask["title"]
             task["duedate"] = newTask["duedate"]
+            print(task["duedate"])
             task["tags"] = newTask["tags"]
             task["isDone"] = newTask["isDone"]
-        else:
-            return "Not found"
+    print(tasks)
     writeToJson(tasks)
             
 def getAllTaskName():
@@ -58,11 +58,6 @@ def getTask(title):
         if task["title"] == title:
             return task
     return None
-    
-def getAllTaskName():
-    tasks = getAllTask()
-    tasksName = [task["title"] for task in tasks]
-    return tasksName
     
 def getAllTags():
     tasks = getAllTask()
