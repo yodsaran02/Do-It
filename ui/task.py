@@ -6,7 +6,7 @@ from datetime import datetime
 console = Console()
 
 def taskTable(tasks=None):
-    task_table = Table(box=box.SIMPLE, expand=True) 
+    task_table = Table(box=box.SIMPLE, expand=True, title="Tasks :D") 
     task_table.add_column("Title", justify="left")
     task_table.add_column("Duedate")
     task_table.add_column("Tags")

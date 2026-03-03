@@ -6,7 +6,7 @@ from rich import box
 console = Console()
 
 def menuTable():
-    menu_table = Table(show_header=False, box=box.SQUARE, expand=False)
+    menu_table = Table(show_header=False, box=box.SQUARE, expand=False, title="Menu~")
     menu_table.add_column("Key", style="cyan", justify="right", width=5)
     menu_table.add_column("Description", style="white")
     menu_table.add_row("[1]", "Add Task")

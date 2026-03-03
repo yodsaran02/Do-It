@@ -6,9 +6,13 @@ from rich.panel import Panel
 from rich.columns import Columns
 
 render = Panel.fit(
-    Columns([task.taskTable(storage.getAllTask()), menu.menuTable()]),
+    Columns([
+        task.taskTable(storage.getAllTask()), 
+        menu.menuTable()], 
+        equal=True, expand=True
+    ),
     title="Do-It Version 1.0",
-    border_style="red",
+    border_style="white",
     title_align="left",
     padding=(1, 2),
 )
