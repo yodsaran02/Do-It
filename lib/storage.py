@@ -30,6 +30,14 @@ def createTask(title, duedate=None):
     tasks.append(currentTask)
     writeToJson(tasks)
 
+def deleteTask(taskHash):
+    tasks = getAllTask()
+    for task in tasks:
+        if task["hash"] == taskHash:
+            tasks.remove(task)
+    writeToJson(tasks)
+    
+
 def editTask(hash, title=None, duedate=None, isDone=False, actual_time=0, predicted_time=None, tags=[]):
     tasks = getAllTask()
     for task in tasks:
@@ -42,6 +50,7 @@ def editTask(hash, title=None, duedate=None, isDone=False, actual_time=0, predic
             task["isDone"] = isDone
         else:
             return "Not found"
+    writeToJson(tasks)
             
 def getAllTaskName():
     tasks = getAllTask()

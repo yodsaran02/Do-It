@@ -31,10 +31,11 @@ while True:
         print("successfully added", end="\n\n")
     elif choice == "3":
         work_list = storage.getAllTask()
-        for i in work_list:
+        for i in sorted(work_list,):
             print(i["title"], end="")
             if i["duedate"] is not None:
-                print(" (Due: {})".format(i["duedate"].strftime("%d/%m/%Y")),)
+                result = datetime.fromisoformat(i["duedate"])
+                print(f"Due: {result.strftime("%d/%m/%Y")}")
             else:
                 print(" (No due date)")
         print()
