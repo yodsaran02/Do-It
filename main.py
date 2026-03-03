@@ -31,7 +31,13 @@ while True:
         input_task = Prompt.ask("Title")
         if input_task not in storage.getAllTaskName():
             raw_deadline = Prompt.ask("Deadline (DD/MM/YY)")
-            deadline = datetime.strptime(raw_deadline, "%d/%m/%y") if raw_deadline else None
+            try:
+                deadline = datetime.strptime(raw_deadline, "%d/%m/%y") if raw_deadline else None
+                break
+            except ValueError:
+                render()
+                console.print("Invalid date format!", style="white on red")
+                continue
             storage.createTask(input_task, deadline)
         else:
             render()
@@ -44,13 +50,19 @@ while True:
             task_hash = task["hash"]
             new_title = Prompt.ask("New Title", default=None)
             new_duedate = Prompt.ask("New Deadline (DD/MM/YY)", default=None)
+            if new_duedate:
+                try:
+                    task["duedate"] = storage.parseDueDate(datetime.strptime(new_duedate, "%d/%m/%y"))
+                    break
+                except ValueError:
+                    render()
+                    console.print("Invalid date format!", style="white on red")
+                    continue
             new_is_done = Prompt.ask("Is Done? (y/n)", default=None)
             added_tags = Prompt.ask("Added Tags (space separated)", default=None)
             removed_tags = Prompt.ask("Removed Tags (space separated)", default=None)
             if new_title:
                 task["title"] = new_title
-            if new_duedate:
-                task["duedate"] = storage.parseDueDate(datetime.strptime(new_duedate, "%d/%m/%y"))
             if new_is_done:
                 task["isDone"] = True if new_is_done == "y" else False
             if added_tags:
