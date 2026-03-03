@@ -12,7 +12,7 @@ def writeToJson(data):
 
 def parseDueDate(duedate):
     if duedate:
-        duedate = duedate.toISOString()
+        duedate = duedate.isoformat()
     return duedate
 
 def createTask(title, duedate=None): 
