@@ -1,12 +1,19 @@
-from ui.tasklist import TableApp
+from datetime import datetime
 from lib import storage
+from ui import menu, task
 
-tasks = storage.getAllTask()
-ROWS = [("Title", "Duedate", "Done?", "Tags", "time elapsed")]
-for task in tasks:
-    task_tuple = (task["title"], task["duedate"], task["isDone"], task["tags"], task["actual_time"])
-    ROWS.append(task_tuple)
+from rich import print
+from rich.console import Console
+from rich.panel import Panel
+from rich.columns import Columns
 
-app = TableApp(rows=ROWS)
-if __name__ == "__main__":
-    app.run()
+panel = Panel.fit(
+    Columns([task.taskTable(), menu.menuTable()]),
+    title="My Panel",
+    border_style="red",
+    title_align="left",
+    padding=(1, 2),
+)
+
+console = Console()
+console.print(panel)
