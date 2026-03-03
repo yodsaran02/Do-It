@@ -5,7 +5,8 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.columns import Columns
 
-render = Panel.fit(
+def render():
+    render = Panel.fit(
     Columns([
         task.taskTable(storage.getAllTask()), 
         menu.menuTable()], 
@@ -15,7 +16,10 @@ render = Panel.fit(
     border_style="white",
     title_align="left",
     padding=(1, 2),
-)
+    )
 
-console = Console()
-console.print(render)
+    console = Console()
+    console.print(render)
+    
+render()
+
