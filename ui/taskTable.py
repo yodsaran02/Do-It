@@ -34,7 +34,10 @@ def taskTable(tasks=None):
             if task["duedate"]:
                 time_remaining = datetime.fromisoformat(task["duedate"]) - datetime.now()
                 if time_remaining.total_seconds() < 0:
-                    time_remaining = "Missing"
+                    if not task["isDone"]:
+                        time_remaining = "Missing"
+                    else:
+                        time_remaining = "Done!"
                 elif time_remaining.total_seconds() >= 86400:
                     time_remaining = f"{int(time_remaining.total_seconds() // 86400)}d"
                 time_remaining = str(time_remaining).split(".")[0] #remove microseconds
